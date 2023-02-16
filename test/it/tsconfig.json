@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@payglide/payment-client": ["../../src"]
+    },
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  }
+}

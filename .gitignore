@@ -1,0 +1,12 @@
+node_modules/
+.idea
+.vscode
+*.iml
+.DS_Store
+.husky/_
+.node-version
+
+# Build
+dist/
+coverage/
+yarn-error.log
