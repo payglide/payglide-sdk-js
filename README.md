@@ -77,7 +77,7 @@ const payment = await client.initPayment({
 })
 ```
 
-### **Payment object with convinience methods**
+### **Payment object with convenience methods**
 > getPaymentPage()
 
 Convenience method to get the url for the payment page where users can complete their payment.
