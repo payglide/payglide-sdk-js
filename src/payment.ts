@@ -21,7 +21,7 @@ export class Payment {
   /**
    * The amount of cryprocurrency required to run the transaction
    */
-  readonly amount: number
+  readonly amount: string
   /**
    * The cryprocurrency used for the transaction
    */

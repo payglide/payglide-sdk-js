@@ -8,11 +8,11 @@ export type PaymentSession = {
      */
     id?: string;
     /**
-     * The amount of cryprocurrency required to run the transaction
+     * The amount of cryptocurrency required to run the transaction
      */
-    amount?: number;
+    amount?: string;
     /**
-     * The cryprocurrency used for the transaction
+     * The cryptocurrency used for the transaction
      */
     currency?: string;
     /**
@@ -31,16 +31,17 @@ export type PaymentSession = {
 
 export namespace PaymentSession {
 
-  /**
-   * Payment Status
-   */
-  export enum status {
-      PAYMENT_INITIATED = 'PAYMENT_INITIATED',
-      PAYMENT_SUCCEEDED = 'PAYMENT_SUCCEEDED',
-      PAYMENT_FAILED = 'PAYMENT_FAILED',
-      TOKEN_TRANSFER_INITIATED = 'TOKEN_TRANSFER_INITIATED',
-      TOKEN_TRANSFER_COMPLETED = 'TOKEN_TRANSFER_COMPLETED',
-  }
+    /**
+     * Payment Status
+     */
+    export enum status {
+        PAYMENT_INITIATED = 'PAYMENT_INITIATED',
+        PAYMENT_SUCCEEDED = 'PAYMENT_SUCCEEDED',
+        PAYMENT_FAILED = 'PAYMENT_FAILED',
+        TOKEN_TRANSFER_INITIATED = 'TOKEN_TRANSFER_INITIATED',
+        TOKEN_TRANSFER_COMPLETED = 'TOKEN_TRANSFER_COMPLETED',
+    }
+
 
 }
 

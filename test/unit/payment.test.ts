@@ -3,7 +3,7 @@ import { Payment, PaymentSessionError, PaymentSession } from '../../src/'
 describe('Payment', () => {
   it('should initialise with correct payment session data', () => {
     const A_SESSION_ID = 'A_SESSION_ID'
-    const AN_AMOUNT = 42
+    const AN_AMOUNT = '42'
     const A_CURRENCY = 'USDC'
     const AN_ADDRESS = '0x123'
     const A_HASH = 'hash'
