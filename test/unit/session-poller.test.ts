@@ -46,7 +46,7 @@ describe('session poller (asyncPoll)', () => {
     mockGetSessionById.mockReturnValue(sessionWithStatus('COMPLETED_STATUS'))
 
     const result = await asyncPoll({
-      getPaymentSessionFn: mockGetSessionById,
+      getSessionFn: mockGetSessionById,
       sessionId: A_SESSION_ID,
       expectedStatus: 'COMPLETED_STATUS',
       failureStatus: [],
@@ -66,7 +66,7 @@ describe('session poller (asyncPoll)', () => {
       .mockReturnValue(sessionWithStatus('COMPLETED_STATUS'))
 
     const result = await asyncPoll({
-      getPaymentSessionFn: mockGetSessionById,
+      getSessionFn: mockGetSessionById,
       sessionId: A_SESSION_ID,
       expectedStatus: 'COMPLETED_STATUS',
       failureStatus: [],
@@ -92,7 +92,7 @@ describe('session poller (asyncPoll)', () => {
 
     try {
       await asyncPoll({
-        getPaymentSessionFn: mockGetSessionById,
+        getSessionFn: mockGetSessionById,
         sessionId: A_SESSION_ID,
         expectedStatus: 'COMPLETED_STATUS',
         failureStatus: [],
@@ -108,7 +108,7 @@ describe('session poller (asyncPoll)', () => {
     mockGetSessionById.mockReturnValue(sessionWithStatus('FAILURE_STATUS'))
     try {
       await asyncPoll({
-        getPaymentSessionFn: mockGetSessionById,
+        getSessionFn: mockGetSessionById,
         sessionId: A_SESSION_ID,
         expectedStatus: 'COMPLETED_STATUS',
         failureStatus: ['FAILURE_STATUS'],
@@ -124,7 +124,7 @@ describe('session poller (asyncPoll)', () => {
     mockGetSessionById.mockReturnValue(sessionWithStatus(undefined))
     try {
       await asyncPoll({
-        getPaymentSessionFn: mockGetSessionById,
+        getSessionFn: mockGetSessionById,
         sessionId: A_SESSION_ID,
         expectedStatus: 'COMPLETED_STATUS',
         failureStatus: ['FAILURE_STATUS'],
@@ -140,7 +140,7 @@ describe('session poller (asyncPoll)', () => {
     mockGetSessionById.mockReturnValue(sessionWithStatus(null))
     try {
       await asyncPoll({
-        getPaymentSessionFn: mockGetSessionById,
+        getSessionFn: mockGetSessionById,
         sessionId: A_SESSION_ID,
         expectedStatus: 'COMPLETED_STATUS',
         failureStatus: ['FAILURE_STATUS'],
@@ -157,7 +157,7 @@ describe('session poller (asyncPoll)', () => {
     mockGetSessionById.mockRejectedValue(GET_SESSION_ERROR)
     try {
       await asyncPoll({
-        getPaymentSessionFn: mockGetSessionById,
+        getSessionFn: mockGetSessionById,
         sessionId: A_SESSION_ID,
         expectedStatus: 'COMPLETED_STATUS',
         failureStatus: ['FAILURE_STATUS'],
@@ -174,7 +174,7 @@ describe('session poller (asyncPoll)', () => {
     mockGetSessionById.mockRejectedValue(API_ERROR_400)
     try {
       await asyncPoll({
-        getPaymentSessionFn: mockGetSessionById,
+        getSessionFn: mockGetSessionById,
         sessionId: A_SESSION_ID,
         expectedStatus: 'COMPLETED_STATUS',
         failureStatus: ['FAILURE_STATUS'],
@@ -191,7 +191,7 @@ describe('session poller (asyncPoll)', () => {
     mockGetSessionById.mockRejectedValue(API_ERROR_500)
     try {
       await asyncPoll({
-        getPaymentSessionFn: mockGetSessionById,
+        getSessionFn: mockGetSessionById,
         sessionId: A_SESSION_ID,
         expectedStatus: 'COMPLETED_STATUS',
         failureStatus: ['FAILURE_STATUS'],

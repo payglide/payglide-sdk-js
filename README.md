@@ -26,86 +26,125 @@ const client = new PayGlideClient({
 })
 ```
 
-### **initPaymentSession**
-> PaymentSession initPaymentSession(initPaymentRequest)
+### **initCheckoutSession**
+> CheckoutSession initCheckoutSession(initCheckoutRequest)
 
-Create a new payment session based on the transaction data
+Create a new checkout session based on the transaction data
 
 
 ```typescript
-const paymentSession = await client.initPaymentSession({
+const checkoutSession = await client.initCheckoutSession({
   address: '0x6f9ce307c114f443',
   code: 'test script',
   arguments: [
     {
-      value: '3',
+      value: '5.0',
       type: 'UFix64',
     },
   ],
 })
 ```
 
-The initPaymentSession method returns a `Promise` which resolves the paymentSession response.
+The initCheckoutSession method returns a `Promise` which resolves the checkoutSession response.
 
-```js
+```json
 {
-  currency: 'USDC',
-  status: 'PAYMENT_INITIATED',
-  amount: '13',
-  address: '0x6f9ce307c114f443',
-  id: '23999587-b312-4e1f-950e-5e95984fea44',
-  transactionHash: 'cea6b2d18abce452e0b57a7393642a9358de23ebd5dffa1589563162d0ab44c4',
+    "id": "1234abcd-1234-abcd-8c19-1234abcd56ef",
+    "expiresAt": "2023-05-25T23:23:56.360Z",
+    "createdAt": "2023-05-25T23:08:56.360Z",
+    "updatedAt": "2023-05-25T23:08:56.360Z",
+    "status": "CHECKOUT_INITIATED",
+    "transactionHash": "",
+    "buyer": {
+        "address": "0x6f9ce307c114f443"
+    },
+    "products": [
+        {
+            "pricing": {
+                "amount": "5.00000000",
+                "currency": "USDC"
+            }
+        }
+    ],
+    "quote": {
+        "details": [
+            {
+                "description": "1 x NFT",
+                "amount": "5.00",
+                "currency": "USD"
+            },
+            {
+                "description": "Processing Fee",
+                "amount": "0.49",
+                "currency": "USD"
+            },
+            {
+                "description": "Network Fee",
+                "amount": "0",
+                "currency": "USD"
+            }
+        ],
+        "total": {
+            "description": "Total Price",
+            "amount": "5.49",
+            "currency": "USD"
+        },
+        "expiresAt": "2023-05-25T23:18:56.360Z",
+        "createdAt": "2023-05-25T23:08:56.360Z",
+        "updatedAt": "2023-05-25T23:18:56.360Z"
+    }
 }
 ```
 
-### **initPayment**
-> Payment initPayment(initPaymentRequest)
+### **initCheckout**
+> Checkout initCheckout(initCheckoutRequest)
 
-The initPaynent method returns a `Promise` which resolves the Payment object.
-Payment is a helper class for polling the payment session status and provides with other convenience methods.
+The initCheckout method returns a `Promise` which resolves the Checkout object.
+Checkout is a helper class for polling the checkout session status and provides with other convenience methods.
 
 ```typescript
-const payment = await client.initPayment({
+const checkout = await client.initCheckout({
   address: '0x6f9ce307c114f443',
   code: 'test script',
   arguments: [
     {
-      value: '3',
+      value: '5.0',
       type: 'UFix64',
     },
   ],
 })
 ```
 
-### **Payment object with convenience methods**
-> getPaymentPage()
+### **Checkout object with convenience methods**
+> getCheckoutPage(walletId)
 
-Convenience method to get the url for the payment page where users can complete their payment.
+Convenience method to get the url for the wallet specific checkout page.
 ```typescript
-const paymentPageUrl = payment.getPaymentPage()
+const checkoutPageUrl = checkout.getCheckoutPage(walletId)
 ```
 
 
 > getCurrentStatus()
 
-Convenience method to retrieve the current payment status associated with the payment.
+Convenience method to retrieve the current checkout status associated with the checkout.
 ```typescript
-const currentStatus = await payment.getCurrentStatus()
+const currentStatus = await checkout.getCurrentStatus()
 ```
-Posible payment status:
-
+Posible checkout status:
+- CHECKOUT_INITIATED
 - PAYMENT_INITIATED
 - PAYMENT_SUCCEEDED
 - PAYMENT_FAILED
 - TOKEN_TRANSFER_INITIATED
 - TOKEN_TRANSFER_COMPLETED
+- TOKEN_TRANSFER_FAILED
 
 
-> PaymentSession onTransactionComplete()
+> CheckoutSession onTransactionComplete()
 
-Convenience method to poll the payment status and resolve the promise when the payment is complete.
+Convenience method to poll the checkout status and resolve the promise when the checkout is complete.
 ```typescript
-const finalSession = await payment.onTransactionComplete()
+const finalSession = await checkout.onTransactionComplete()
 ```
 
 ### PayGlideClient options

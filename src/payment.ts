@@ -1,4 +1,4 @@
-import { PaymentService, PaymentSession } from './generated'
+import { PaymentService, PaymentSession, CheckoutSession } from './generated'
 import { asyncPoll } from './utils/session-poller'
 
 export class PaymentSessionError extends Error {
@@ -103,9 +103,9 @@ export class Payment {
    * The payment session API will be reinvoked in `pollInterval` until it times out.
    * It will throw an error if the polling interval is exceeded.
    */
-  onTransactionComplete(): Promise<PaymentSession> {
+  onTransactionComplete(): Promise<PaymentSession | CheckoutSession> {
     return asyncPoll({
-      getPaymentSessionFn: PaymentService.getSessionById,
+      getSessionFn: PaymentService.getSessionById,
       sessionId: this.sessionId,
       expectedStatus: PaymentSession.status.TOKEN_TRANSFER_COMPLETED,
       failureStatus: [PaymentSession.status.PAYMENT_FAILED],

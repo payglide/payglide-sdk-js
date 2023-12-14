@@ -1,5 +1,14 @@
-import { InitPaymentRequest, OpenAPI, PaymentService, PaymentSession } from './generated'
+import {
+  CheckoutService,
+  CheckoutSession,
+  InitCheckoutFromTxRequest,
+  InitPaymentRequest,
+  OpenAPI,
+  PaymentService,
+  PaymentSession,
+} from './generated'
 import { Payment } from './payment'
+import { Checkout } from './checkout'
 
 /**
  * A client for PayGlide's API
@@ -93,5 +102,41 @@ export class PayGlideClient {
    */
   public static async getSessionById(sessionId: string): Promise<PaymentSession> {
     return PaymentService.getSessionById(sessionId)
+  }
+
+  /**
+   * Initialise a checkout
+   * Create a new checkout object based on the transaction data
+   *
+   * @param initCheckoutRequest Data required to intialise a checkout
+   * @returns Checkout - provides method to poll the checkout status
+   * @throws ApiError
+   */
+  public async initCheckout(initCheckoutRequest: InitCheckoutFromTxRequest): Promise<Checkout> {
+    return new Checkout(await CheckoutService.initCheckout(initCheckoutRequest), {
+      pollInterval: this.pollInterval,
+      pollTimeout: this.pollTimeout,
+    })
+  }
+
+  /**
+   * Initialise a checkout session
+   * Create a new checkout session based on the transaction data
+   *
+   * @param initCheckoutRequest Data required to intialise a checkout
+   * @returns CheckoutSession - checkout session object
+   * @throws ApiError
+   */
+  public async initCheckoutSession(initCheckoutRequest: InitCheckoutFromTxRequest): Promise<CheckoutSession> {
+    return CheckoutService.initCheckout(initCheckoutRequest)
+  }
+
+  /**
+   * Returns the checkout session information
+   * @param sessionId - the ID of the checkout session
+   * @returns CheckoutSession - checkout session object
+   */
+  public static async getCheckoutSessionById(sessionId: string): Promise<CheckoutSession> {
+    return CheckoutService.getCheckoutSessionById(sessionId)
   }
 }

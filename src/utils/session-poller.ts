@@ -1,7 +1,7 @@
-import { PaymentSession, ApiError } from '../generated'
+import { CheckoutSession, PaymentSession, ApiError } from '../generated'
 
 export interface AsyncFunction extends Function {
-  (sessionId: string): PromiseLike<PaymentSession>
+  (sessionId: string): PromiseLike<PaymentSession | CheckoutSession>
 }
 
 export class PollTimeoutError extends Error {
@@ -30,7 +30,7 @@ export async function asyncPoll({
    *
    * Rejections will stop the polling and will be propagated.
    */
-  getPaymentSessionFn,
+  getSessionFn,
 
   /**
    * Session ID if the payment session.
@@ -59,16 +59,19 @@ export async function asyncPoll({
    */
   pollTimeout,
 }: {
-  getPaymentSessionFn: AsyncFunction
+  getSessionFn: AsyncFunction
   sessionId: string
   expectedStatus: string
   failureStatus: Array<string>
   pollInterval: number
   pollTimeout: number
-}): Promise<PaymentSession> {
+}): Promise<PaymentSession | CheckoutSession> {
   const endTime = new Date().getTime() + pollTimeout
-  const checkCondition = (resolve: (arg: PaymentSession) => void, reject: (arg: Error) => void): void => {
-    Promise.resolve(getPaymentSessionFn(sessionId))
+  const checkCondition = (
+    resolve: (arg: PaymentSession | CheckoutSession) => void,
+    reject: (arg: Error) => void,
+  ): void => {
+    Promise.resolve(getSessionFn(sessionId))
       .then(result => {
         const now = new Date().getTime()
         const status = result.status

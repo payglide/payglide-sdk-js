@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "generate-axios": "rimraf ./src/generated && openapi --input ./payment-api.yml --output ./src/generated --client axios",
-    "generate-fetch": "rimraf ./src/generated && openapi --input ./payment-api.yml --output ./src/generated --client fetch",
+    "generate-axios": "rimraf ./src/generated && openapi --input ./payglide-api.yml --output ./src/generated --client axios",
+    "generate-fetch": "rimraf ./src/generated && openapi --input ./payglide-api.yml --output ./src/generated --client fetch",
     "lint": "eslint --ext .js,.ts .",
     "lint:fix": "eslint --ext .js,.ts . --quiet --fix",
     "build": "rimraf ./dist && tsc --project tsconfig-build.json",
