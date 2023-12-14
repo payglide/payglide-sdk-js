@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "PayGlide SDK for JavaScript",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "generate-axios": "rimraf ./src/generated && openapi --input ./payment-api.yml --output ./src/generated --client axios",
     "generate-fetch": "rimraf ./src/generated && openapi --input ./payment-api.yml --output ./src/generated --client fetch",
